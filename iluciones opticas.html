@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPTIVISION - Ilusiones Ópticas de Alto Impacto</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+  <header>
+    <div class="optivision-logo">
+      <div class="logo-ojo">
+        <span class="ojo">👁️</span>
+        <div class="letras-logo">
+          <span class="letra-o">O</span>
+          <span class="letra-v">V</span>
+        </div>
+      </div>
+      <div class="texto-logo">
+        <span class="nombre-top">OPTIVISION</span>
+        <span class="sub-bottom">La ciencia de como vemos</span>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html" class="activo">Inicio</a>
+    <a href="el ojo humano.html">El Ojo Humano</a>
+    <a href="experimentos.html">Experimentos</a>
+    <a href="iluciones opticas.html">Ilusiones Ópticas</a>
+    <a href="preguntas visuales.html">Preguntas Visuales</a>
+  </nav>
+
+  <main>
+    <h2>Laboratorio Interactivo de Percepción Visual</h2>
+    <p>Simulaciones vectoriales de alta fidelidad. Interactúa con los controles para manipular la física de la luz, el movimiento periférico y la geometría imposible.</p>
+
+    <div class="grid-ilusiones-clean">
+
+      <!-- 1. ESPIRAL -->
+      <div class="card-ilusion-clean">
+        <h3>1. Post-Efecto de Movimiento (Fatiga Neuronal)</h3>
+        <div class="canvas-wrap">
+          <canvas id="espiralCanvas" width="300" height="300"></canvas>
+        </div>
+        <div class="controls-clean">
+          <button class="btn-clean" onclick="toggleEspiral()" id="btnEspiral">▶️ Iniciar Test (20s con Audio)</button>
+          <div class="timer-clean" id="timerBox">En espera...</div>
+        </div>
+        <p class="desc-clean">
+          <strong>Reto:</strong> Mira el centro fijamente durante 20 segundos y luego observa la palma de tu mano. Las neuronas del área V5/MT se agotan, generando una ilusión de expansión en el mundo real.
+        </p>
+      </div>
+
+      <!-- 2. TÚNEL -->
+      <div class="card-ilusion-clean">
+        <h3>2. Túnel de Panal y Esfera 3D (Kitaoka)</h3>
+        <div class="canvas-wrap">
+          <canvas id="tunnelCanvas" width="300" height="300"></canvas>
+        </div>
+        <div class="controls-clean">
+          <button class="btn-clean" onclick="toggleTunnelMotion()" id="btnTunnel">⏸️ Pausar / Reanudar Movimiento</button>
+        </div>
+        <p class="desc-clean">
+          <strong>Explicación:</strong> Mosaico en morado y dorado. Los bordes de alto contraste estimulan los microsacádicos de los ojos, haciendo que la esfera parezca flotar dentro del panal.
+        </p>
+      </div>
+
+      <!-- 3. PRISMA -->
+      <div class="card-ilusion-clean">
+        <h3>3. Refracción y Dispersión en Prisma</h3>
+        <div class="canvas-wrap">
+          <canvas id="prismaCanvas" width="300" height="300"></canvas>
+        </div>
+        <div class="controls-clean">
+          <label for="raySlider">Posición del Rayo Incidente:</label>
+          <input type="range" id="raySlider" min="40" max="160" value="100" oninput="drawPrisma()" style="width:100%;">
+        </div>
+        <p class="desc-clean">
+          <strong>Explicación:</strong> Modelo de refracción cromática. Demuestra cómo la luz blanca disminuye su velocidad al entrar al cristal y se descompone en el espectro visible según su longitud de onda.
+        </p>
+      </div>
+
+      <!-- 4. GESTALT -->
+      <div class="card-ilusion-clean">
+        <h3>4. Geometría Imposible y Gestalt</h3>
+        <div class="canvas-wrap">
+          <canvas id="gestaltCanvas" width="300" height="300"></canvas>
+        </div>
+        <div class="controls-clean">
+          <button class="btn-clean" onclick="toggleGestaltMode()">🔄 Cambiar (Cubo Escher / Saxofonista)</button>
+        </div>
+        <p class="desc-clean">
+          <strong>Explicación:</strong> Intercambia entre el Cubo de Escher (con intersecciones 3D imposibles) y la silueta ambigua (saxofonista o rostro de mujer).
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    let audioCtx = null, osc = null;
+
+    function startAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      osc = audioCtx.createOscillator();
+      let gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+    }
+
+    function updateAudio(f) { if (osc && audioCtx) osc.frequency.setValueAtTime(f, audioCtx.currentTime); }
+    function stopAudio() { if (osc) { osc.stop(); osc.disconnect(); osc = null; } }
+
+    function playBeep() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      let b = audioCtx.createOscillator(), g = audioCtx.createGain();
+      b.frequency.setValueAtTime(880, audioCtx.currentTime);
+      g.gain.setValueAtTime(0.12, audioCtx.currentTime);
+      b.connect(g); g.connect(audioCtx.destination);
+      b.start(); b.stop(audioCtx.currentTime + 0.4);
+    }
+
+    // 1. ESPIRAL
+    let espCanvas = document.getElementById('espiralCanvas'), ctxEsp = espCanvas.getContext('2d');
+    let espAngle = 0, espActive = false, espAnim, espTimer;
+
+    function drawEspiral() {
+      ctxEsp.fillStyle = '#0f172a';
+      ctxEsp.fillRect(0, 0, 300, 300);
+      ctxEsp.save();
+      ctxEsp.translate(150, 150);
+      ctxEsp.rotate(espAngle);
+      ctxEsp.beginPath();
+      ctxEsp.lineWidth = 3.5;
+      ctxEsp.strokeStyle = '#d4af37';
+      for (let i = 0; i < 720; i++) {
+        let r = i * 0.19;
+        let a = i * 0.1;
+        let x = r * Math.cos(a);
+        let y = r * Math.sin(a);
+        if (i === 0) ctxEsp.moveTo(x, y);
+        else ctxEsp.lineTo(x, y);
+      }
+      ctxEsp.stroke();
+      ctxEsp.beginPath();
+      ctxEsp.arc(0, 0, 5, 0, Math.PI * 2);
+      ctxEsp.fillStyle = '#e63946';
+      ctxEsp.fill();
+      ctxEsp.restore();
+
+      if (espActive) {
+        espAngle += 0.08;
+        espAnim = requestAnimationFrame(drawEspiral);
+      }
+    }
+
+    function toggleEspiral() {
+      espActive = !espActive;
+      let btn = document.getElementById('btnEspiral');
+      let timer = document.getElementById('timerBox');
+
+      if (espActive) {
+        btn.innerText = "⏸️ Detener Test";
+        startAudio();
+        let s = 0;
+        drawEspiral();
+        espTimer = setInterval(() => {
+          s++;
+          timer.innerText = `Tiempo: ${s}s / 20s`;
+          updateAudio(220 + (s * 15));
+          if (s >= 20) {
+            stopAudio();
+            playBeep();
+            timer.innerText = "¡MIRA TU MANO AHORA!";
+            timer.style.color = "#e63946";
+            clearInterval(espTimer);
+          }
+        }, 1000);
+      } else {
+        btn.innerText = "▶️ Iniciar Test (20s con Audio)";
+        cancelAnimationFrame(espAnim);
+        clearInterval(espTimer);
+        stopAudio();
+        timer.innerText = "En espera...";
+        timer.style.color = "#334155";
+      }
+    }
+    drawEspiral();
+
+    // 2. TÚNEL
+    let tunCanvas = document.getElementById('tunnelCanvas'), ctxTun = tunCanvas.getContext('2d');
+    let tunAngle = 0, tunActive = true, tunAnim;
+
+    function drawHexagon(ctx, x, y, r, fillColor, strokeColor) {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        let a = (i * Math.PI) / 3;
+        let hx = x + r * Math.cos(a);
+        let hy = y + r * Math.sin(a);
+        if (i === 0) ctx.moveTo(hx, hy);
+        else ctx.lineTo(hx, hy);
+      }
+      ctx.closePath();
+      if (fillColor) { ctx.fillStyle = fillColor; ctx.fill(); }
+      if (strokeColor) { ctx.strokeStyle = strokeColor; ctx.lineWidth = 1.5; ctx.stroke(); }
+    }
+
+    function drawTunnel() {
+      ctxTun.fillStyle = '#2e1065';
+      ctxTun.fillRect(0, 0, 300, 300);
+      ctxTun.save();
+      ctxTun.translate(150, 150);
+
+      for (let ring = 130; ring > 10; ring -= 12) {
+        ctxTun.save();
+        ctxTun.rotate((130 - ring) * 0.015 + tunAngle);
+        let count = Math.floor(ring / 6);
+        for (let i = 0; i < count; i++) {
+          let a = (i * 2 * Math.PI) / count;
+          let hx = ring * Math.cos(a);
+          let hy = ring * Math.sin(a);
+          let bgCol = (i % 2 === 0) ? '#581c87' : '#3b0764';
+          let borderCol = (ring % 24 === 0) ? '#eab308' : '#ffffff';
+          drawHexagon(ctxTun, hx, hy, 7, bgCol, borderCol);
+        }
+        ctxTun.restore();
+      }
+
+      let sx = -40 + Math.sin(tunAngle * 2) * 6;
+      let sy = 20 + Math.cos(tunAngle * 2) * 6;
+      let sr = 42;
+
+      ctxTun.save();
+      ctxTun.beginPath();
+      ctxTun.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctxTun.clip();
+
+      let grad = ctxTun.createRadialGradient(sx - 12, sy - 12, 5, sx, sy, sr);
+      grad.addColorStop(0, '#be123c');
+      grad.addColorStop(0.7, '#881337');
+      grad.addColorStop(1, '#4c0519');
+      ctxTun.fillStyle = grad;
+      ctxTun.fillRect(sx - sr, sy - sr, sr * 2, sr * 2);
+
+      for (let hx = -sr; hx < sr; hx += 10) {
+        for (let hy = -sr; hy < sr; hy += 10) {
+          drawHexagon(ctxTun, sx + hx, sy + hy, 4, null, '#fde047');
+        }
+      }
+      ctxTun.restore();
+
+      ctxTun.beginPath();
+      ctxTun.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctxTun.lineWidth = 2.5;
+      ctxTun.strokeStyle = '#ffffff';
+      ctxTun.stroke();
+
+      ctxTun.restore();
+
+      if (tunActive) {
+        tunAngle += 0.015;
+        tunAnim = requestAnimationFrame(drawTunnel);
+      }
+    }
+
+    function toggleTunnelMotion() {
+      tunActive = !tunActive;
+      let btn = document.getElementById('btnTunnel');
+      btn.innerText = tunActive ? "⏸️ Pausar Movimiento" : "▶️ Reanudar Movimiento";
+      if (tunActive) drawTunnel();
+      else cancelAnimationFrame(tunAnim);
+    }
+    drawTunnel();
+
+    // 3. PRISMA
+    let prismCanvas = document.getElementById('prismaCanvas'), ctxPrism = prismCanvas.getContext('2d');
+
+    function drawPrisma() {
+      let rayY = parseInt(document.getElementById('raySlider').value);
+      ctxPrism.fillStyle = '#0f172a';
+      ctxPrism.fillRect(0, 0, 300, 300);
+
+      ctxPrism.beginPath();
+      ctxPrism.moveTo(0, rayY);
+      ctxPrism.lineTo(110, 150);
+      ctxPrism.lineWidth = 3.5;
+      ctxPrism.strokeStyle = '#ffffff';
+      ctxPrism.shadowColor = '#ffffff';
+      ctxPrism.shadowBlur = 8;
+      ctxPrism.stroke();
+      ctxPrism.shadowBlur = 0;
+
+      ctxPrism.beginPath();
+      ctxPrism.moveTo(150, 40);
+      ctxPrism.lineTo(50, 230);
+      ctxPrism.lineTo(250, 230);
+      ctxPrism.closePath();
+      
+      let pGrad = ctxPrism.createLinearGradient(150, 40, 150, 230);
+      pGrad.addColorStop(0, 'rgba(255, 255, 255, 0.25)');
+      pGrad.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
+      ctxPrism.fillStyle = pGrad;
+      ctxPrism.fill();
+      ctxPrism.lineWidth = 2;
+      ctxPrism.strokeStyle = '#93c5fd';
+      ctxPrism.stroke();
+
+      ctxPrism.beginPath();
+      ctxPrism.moveTo(150, 40);
+      ctxPrism.lineTo(110, 150);
+      ctxPrism.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+      ctxPrism.lineWidth = 1;
+      ctxPrism.stroke();
+
+      let colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4', '#3b82f6', '#a855f7'];
+      colors.forEach((col, idx) => {
+        ctxPrism.beginPath();
+        ctxPrism.moveTo(110, 150);
+        ctxPrism.lineTo(170, 160 + (idx * 2));
+        ctxPrism.lineTo(300, 140 + (idx * 14));
+        ctxPrism.lineWidth = 3;
+        ctxPrism.strokeStyle = col;
+        ctxPrism.shadowColor = col;
+        ctxPrism.shadowBlur = 4;
+        ctxPrism.stroke();
+      });
+      ctxPrism.shadowBlur = 0;
+    }
+    drawPrisma();
+
+    // 4. GESTALT
+    let gesCanvas = document.getElementById('gestaltCanvas'), ctxGes = gesCanvas.getContext('2d');
+    let gesMode = true;
+
+    function drawGestalt() {
+      ctxGes.fillStyle = '#1e293b';
+      ctxGes.fillRect(0, 0, 300, 300);
+
+      if (gesMode) {
+        ctxGes.lineWidth = 8;
+        ctxGes.strokeStyle = '#bae6fd';
+        ctxGes.strokeRect(60, 60, 110, 110);
+        ctxGes.strokeRect(130, 130, 110, 110);
+
+        ctxGes.beginPath();
+        ctxGes.moveTo(60, 60); ctxGes.lineTo(130, 130);
+        ctxGes.moveTo(170, 60); ctxGes.lineTo(240, 130);
+        ctxGes.moveTo(60, 170); ctxGes.lineTo(130, 240);
+        ctxGes.moveTo(170, 170); ctxGes.lineTo(240, 240);
+        ctxGes.stroke();
+
+        ctxGes.fillStyle = '#1e293b';
+        ctxGes.fillRect(160, 120, 20, 20);
+        ctxGes.strokeStyle = '#fde047';
+        ctxGes.lineWidth = 3;
+        ctxGes.strokeRect(160, 120, 20, 20);
+      } else {
+        ctxGes.fillStyle = '#ffffff';
+        ctxGes.fillRect(0, 0, 300, 300);
+        ctxGes.fillStyle = '#000000';
+        
+        ctxGes.beginPath();
+        ctxGes.moveTo(120, 40);
+        ctxGes.bezierCurveTo(80, 50, 70, 100, 110, 110);
+        ctxGes.bezierCurveTo(130, 120, 150, 90, 180, 100);
+        ctxGes.bezierCurveTo(150, 60, 140, 40, 120, 40);
+        ctxGes.fill();
+
+        ctxGes.beginPath();
+        ctxGes.moveTo(110, 120);
+        ctxGes.bezierCurveTo(70, 140, 60, 220, 100, 260);
+        ctxGes.lineTo(160, 260);
+        ctxGes.bezierCurveTo(180, 220, 150, 180, 180, 160);
+        ctxGes.bezierCurveTo(140, 150, 130, 130, 110, 120);
+        ctxGes.fill();
+
+        ctxGes.beginPath();
+        ctxGes.ellipse(190, 130, 12, 5, -0.2, 0, Math.PI * 2);
+        ctxGes.fill();
+      }
+    }
+
+    function toggleGestaltMode() {
+      gesMode = !gesMode;
+      drawGestalt();
+    }
+    drawGestalt();
+  </script>
+
+  <footer>
+    <p>&copy; OPTIVISIÓN - Proyecto de Ciencias</p>
+  </footer>
+</body>
+</html>

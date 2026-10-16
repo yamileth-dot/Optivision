@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPTIVISION - Experimento de Espejos y Reflexión</title>
+   <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header>
+    <div class="optivision-logo">
+      <div class="logo-ojo">
+        <span class="ojo">👁️</span>
+        <div class="letras-logo">
+          <span class="letra-o">O</span>
+          <span class="letra-v">V</span>
+        </div>
+      </div>
+      <div class="texto-logo">
+        <span class="nombre-top">OPTIVISION</span>
+        <span class="sub-bottom">La ciencia de como vemos</span>
+      </div>
+    </div>
+  </header>
+
+  <hr>
+
+  <nav>
+    <a href="index.html">Inicio</a> |
+    <a href="el ojo humano.html">El Ojo Humano</a> |
+    <a href="experimentos.html">Experimentos</a> |
+    <a href="iluciones opticas.html">Ilusiones Ópticas</a> |
+    <a href="preguntas visuales.html">Preguntas Visuales</a>
+  </nav>
+
+  <hr>
+
+  <main>
+    <h2>Simulación de Laboratorio Real: Ley de Reflexión con Linterna y Espejo Plano</h2>
+    <p>Ajusta los controles para observar la simulación en tiempo real. Los fotones de la linterna viajan continuamente hacia el espejo y rebotan manteniendo la igualdad del ángulo.</p>
+
+    <!-- SIMULADOR GRÁFICO ANIMADO Y REALISTA -->
+    <fieldset>
+      <legend><h3>🧪 Mesa de Experimento Interactiva y Animada</h3></legend>
+      
+      <p align="center">
+        <canvas id="labCanvas" width="700" height="350" style="border: 2px solid #000; background-color: #050b14;"></canvas>
+      </p>
+
+      <form>
+        <p>
+          <label for="anguloIncidencia"><strong>1. Ángulo de la Linterna (° respecto a la normal):</strong></label><br>
+          <input type="range" id="anguloIncidencia" min="10" max="80" value="45">
+        </p>
+
+        <p>
+          <label for="distanciaLinterna"><strong>2. Distancia de la Linterna al Espejo (cm):</strong></label><br>
+          <input type="range" id="distanciaLinterna" min="120" max="240" value="180">
+        </p>
+
+        <p>
+          <label for="tipoSuperficie"><strong>3. Propiedad de la Superficie del Espejo:</strong></label>
+          <select id="tipoSuperficie">
+            <option value="plano">Espejo Plano Pulido (Reflexión Especular)</option>
+            <option value="rugoso">Superficie Rugosa (Reflexión Difusa)</option>
+          </select>
+        </p>
+      </form>
+
+      <p id="estadoReflexion"><strong>Lectura del Experimento:</strong> <span id="textoReflexion">Cargando datos...</span></p>
+    </fieldset>
+
+    <br>
+
+    <!-- GUÍA PASO A PASO CON IMÁGENES CIENTÍFICAS REALES -->
+    <h2>Instrucciones del Experimento en el Banco de Trabajo</h2>
+
+    <details open>
+      <summary><strong>Paso 1: Alineación de la Fuente de Luz y la Línea Normal</strong></summary>
+      <p><img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=400&q=80" width="300" alt="Luz incidiendo hacia una superficie óptica"></p>
+      <p>Coloca la linterna o puntero sobre la mesa apuntando hacia el centro del espejo. La línea perpendicular a la superficie del espejo es la <em>Línea Normal</em>.</p>
+    </details>
+
+    <details>
+      <summary><strong>Paso 2: Haz Luminoso Incidente y Medición de Ángulo</strong></summary>
+      <p><img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=400&q=80" width="300" alt="Experimento de luz rebotando en espejo"></p>
+      <p>Enciende la linterna en un ambiente con luz tenue. Mide el ángulo formado entre el haz luminoso de entrada y la línea normal; este es el <em>Ángulo de Incidencia ($\theta_i$)</em>.</p>
+    </details>
+
+    <details>
+      <summary><strong>Paso 3: Reflexión en la Pantalla de Captura</strong></summary>
+      <p><img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?auto=format&fit=crop&w=400&q=80" width="300" alt="Proyección de luz reflejada en pantalla"></p>
+
+      <p>Coloca la pantalla de papel vegetal o cartulina en el trayecto de rebote. Mueve el deslizador arriba para verificar cómo el haz reflejado incide sobre la pantalla manteniendo el simetrismo perfecto.</p>
+    </details>
+
+    <details>
+      <summary><strong>Observación Científica Clave: Ley de Reflexión ($\theta_i = \theta_r$) ⚠️</strong></summary>
+      <p><img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=400&q=80" width="300" alt="Proyección óptica y reflexión en laboratorio"></p>
+      <p><strong>El ángulo de incidencia siempre es igual al ángulo de reflexión ($\theta_i = \theta_r$).</strong> Ambos rayos se desplazan dentro del mismo plano geométrico, demostrando la naturaleza especular del espejo plano.</p>
+    </details>
+
+    <br>
+    <hr>
+
+    <!-- CUESTIONARIO INTERACTIVO -->
+    <section>
+      <h2>❓ Comprobación de Resultados</h2>
+      <p><strong>Si orientas la linterna a un ángulo de 50° con respecto a la Normal sobre el espejo plano, ¿cuál será el ángulo del rayo reflejado?</strong></p>
+
+      <p>
+        <button onclick="evaluarRespuesta(false)">A) Rebotará a 25°, porque pierde la mitad de su energía tras el impacto.</button><br><br>
+        <button onclick="evaluarRespuesta(true)">B) Rebotará exactamente a 50°, cumpliendo que el ángulo de incidencia equivale al de reflexión.</button><br><br>
+        <button onclick="evaluarRespuesta(false)">C) Rebotará a 100°, duplicando su abertura respecto al plano.</button>
+      </p>
+
+      <div id="resultadoQuiz"></div>
+    </section>
+
+  </main>
+
+  <hr>
+
+  <footer>
+    <p>&copy; OPTIVISIÓN - Proyecto de Ciencias</p>
+  </footer>
+
+  <!-- SCRIPT DE SIMULACIÓN Y ANIMACIÓN EN TIEMPO REAL -->
+  <script>
+    const canvas = document.getElementById('labCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    const anguloInput = document.getElementById('anguloIncidencia');
+    const distInput = document.getElementById('distanciaLinterna');
+    const superficieSelect = document.getElementById('tipoSuperficie');
+    const textoReflexion = document.getElementById('textoReflexion');
+
+    // Partículas animadas para simular el flujo continuo de fotones
+    let particulas = [];
+    const maxParticulas = 30;
+
+    for (let i = 0; i < maxParticulas; i++) {
+      particulas.push({
+        progreso: Math.random(),
+        velocidad: 0.01 + Math.random() * 0.008
+      });
+    }
+
+    let tiempoGrafico = 0;
+
+    function renderizarLaboratorioAnimado() {
+      tiempoGrafico += 0.05;
+      const w = canvas.width;
+      const h = canvas.height;
+      const espejoX = w / 2;
+      const espejoY = h - 60;
+
+      const thetaDeg = parseFloat(anguloInput.value);
+      const thetaRad = (thetaDeg * Math.PI) / 180;
+      const dist = parseFloat(distInput.value);
+      const esRugoso = superficieSelect.value === 'rugoso';
+
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. MESA DE LABORATORIO
+      ctx.beginPath();
+      ctx.moveTo(30, espejoY + 5);
+      ctx.lineTo(w - 30, espejoY + 5);
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = '#334155';
+      ctx.stroke();
+
+      // Transportador de ángulos graduado alrededor del espejo
+      ctx.beginPath();
+      ctx.arc(espejoX, espejoY, 60, Math.PI, 2 * Math.PI);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.stroke();
+
+      // 2. LINEA NORMAL (Perpendicular)
+      ctx.beginPath();
+      ctx.setLineDash([4, 4]);
+      ctx.moveTo(espejoX, espejoY);
+      ctx.lineTo(espejoX, 30);
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#94a3b8';
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // 3. ESPEJO PLANO
+      ctx.beginPath();
+      ctx.moveTo(espejoX - 110, espejoY);
+      ctx.lineTo(espejoX + 110, espejoY);
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = esRugoso ? '#78716c' : '#38bdf8';
+      ctx.stroke();
+
+      // 4. POSICION DE LINTERNA Y HAZ INCIDENTE
+      const linternaX = espejoX - dist * Math.sin(thetaRad);
+      const linternaY = espejoY - dist * Math.cos(thetaRad);
+
+      // Cuerpo de la Linterna
+      ctx.beginPath();
+      ctx.arc(linternaX, linternaY, 14, 0, 2 * Math.PI);
+      ctx.fillStyle = '#f59e0b';
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Haz Incidente (Rojo)
+      ctx.beginPath();
+      ctx.moveTo(linternaX, linternaY);
+      ctx.lineTo(espejoX, espejoY);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#ff4757';
+      ctx.stroke();
+
+      // 5. ANIMACIÓN DE FOTONES VIAJANDO
+      particulas.forEach(p => {
+        p.progreso += p.velocidad;
+        if (p.progreso > 1) p.progreso = 0;
+
+        // Trayectoria Incidente
+        const px = linternaX + (espejoX - linternaX) * p.progreso;
+        const py = linternaY + (espejoY - linternaY) * p.progreso;
+
+        ctx.beginPath();
+        ctx.arc(px, py, 3, 0, 2 * Math.PI);
+        ctx.fillStyle = '#ffa502';
+        ctx.fill();
+
+        // Trayectoria Reflejada
+        if (!esRugoso) {
+          const reflejadoX = espejoX + dist * Math.sin(thetaRad);
+          const reflejadoY = espejoY - dist * Math.cos(thetaRad);
+
+          const rx = espejoX + (reflejadoX - espejoX) * p.progreso;
+          const ry = espejoY + (reflejadoY - espejoY) * p.progreso;
+
+          ctx.beginPath();
+          ctx.arc(rx, ry, 3, 0, 2 * Math.PI);
+          ctx.fillStyle = '#70a1ff';
+          ctx.fill();
+        }
+      });
+
+      // 6. DESTELLO EN EL PUNTO DE IMPACTO
+      const radioBrillo = 8 + Math.sin(tiempoGrafico * 2) * 4;
+      ctx.beginPath();
+      ctx.arc(espejoX, espejoY, radioBrillo, 0, 2 * Math.PI);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+      ctx.fill();
+
+      // 7. HAZ REFLEJADO
+      if (!esRugoso) {
+        const reflejadoX = espejoX + dist * Math.sin(thetaRad);
+        const reflejadoY = espejoY - dist * Math.cos(thetaRad);
+
+        ctx.beginPath();
+        ctx.moveTo(espejoX, espejoY);
+        ctx.lineTo(reflejadoX, reflejadoY);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#1e90ff';
+        ctx.stroke();
+
+        // Pantalla de Captura del Rayo
+        ctx.beginPath();
+        ctx.rect(reflejadoX - 6, reflejadoY - 20, 12, 40);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.strokeStyle = '#2ed573';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        textoReflexion.textContent = `Ángulo de Incidencia (θi) = ${thetaDeg}° | Ángulo de Reflexión (θr) = ${thetaDeg}° (Especular Perfecta)`;
+      } else {
+        // REFLEXIÓN DIFUSA
+        for (let a = -60; a <= 60; a += 20) {
+          const radDiff = ((thetaDeg + a) * Math.PI) / 180;
+          const rx = espejoX + (dist * 0.6) * Math.sin(radDiff);
+          const ry = espejoY - (dist * 0.6) * Math.cos(radDiff);
+
+          ctx.beginPath();
+          ctx.moveTo(espejoX, espejoY);
+          ctx.lineTo(rx, ry);
+          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = '#eccc68';
+          ctx.stroke();
+        }
+
+        textoReflexion.textContent = `Reflexión Difusa: Las micro-imperfecciones del material dispersan la luz en múltiples direcciones.`;
+      }
+
+      requestAnimationFrame(renderizarLaboratorioAnimado);
+    }
+
+    // Iniciar bucle de animación
+    renderizarLaboratorioAnimado();
+
+    function evaluarRespuesta(esCorrecta) {
+      const divRes = document.getElementById('resultadoQuiz');
+      if (esCorrecta) {
+        divRes.innerHTML = "<p><strong>¡Excelente! 🎉</strong> La Ley de Reflexión es exacta: los fotones rebotan conservando la misma inclinación respecto a la Normal ($\theta_i = \theta_r$).</p>";
+      } else {
+        divRes.innerHTML = "<p><strong>Respuesta Incorrecta. ❌</strong> Revisa la animación en la mesa interactiva y observa cómo el rayo azul mantiene exactamente la misma apertura que el rayo rojo.</p>";
+      }
+    }
+  </script>
+</body>
+</html>

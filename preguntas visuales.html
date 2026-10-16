@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPTIVISION - Preguntas Visuales</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header>
+    <div class="optivision-logo">
+      <div class="logo-ojo">
+        <span class="ojo">👁️</span>
+        <div class="letras-logo">
+          <span class="letra-o">O</span>
+          <span class="letra-v">V</span>
+        </div>
+      </div>
+      <div class="texto-logo">
+        <span class="nombre-top">OPTIVISION</span>
+        <span class="sub-bottom">La ciencia de como vemos</span>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="el ojo humano.html">El Ojo Humano</a>
+    <a href="experimentos.html">Experimentos</a>
+    <a href="iluciones opticas.html">Ilusiones Ópticas</a>
+    <a href="preguntas visuales.html" class="activo">Preguntas Visuales</a>
+  </nav>
+
+  <main>
+    <h2>Trivia Visual Evaluativa: 10 Preguntas de Ciencias</h2>
+    <p style="margin-bottom: 20px;">Responde seleccionando tu opción. Se iluminará en <strong>verde</strong> si es correcta o en <strong>rojo</strong> si es incorrecta.</p>
+
+    <!-- PREGUNTA 1 -->
+    <div class="quiz-block">
+      <p>1. ¿En qué parte del ojo se forman las imágenes de forma invertida?</p>
+      <button class="quiz-option" onclick="responder(1, 'A', this)">A) Córnea</button>
+      <button class="quiz-option" onclick="responder(1, 'B', this)">B) Retina</button>
+      <button class="quiz-option" onclick="responder(1, 'C', this)">C) Iris</button>
+    </div>
+
+    <!-- PREGUNTA 2 -->
+    <div class="quiz-block">
+      <p>2. ¿Qué estructura ajusta la acomodación y enfoque del ojo según la distancia?</p>
+      <button class="quiz-option" onclick="responder(2, 'A', this)">A) Cristalino</button>
+      <button class="quiz-option" onclick="responder(2, 'B', this)">B) Nervio Óptico</button>
+      <button class="quiz-option" onclick="responder(2, 'C', this)">C) Pupila</button>
+    </div>
+
+    <!-- PREGUNTA 3 -->
+    <div class="quiz-block">
+      <p>3. ¿Qué porcentaje aproximado del poder de refracción del ojo aporta la córnea?</p>
+      <button class="quiz-option" onclick="responder(3, 'A', this)">A) 20%</button>
+      <button class="quiz-option" onclick="responder(3, 'B', this)">B) 50%</button>
+      <button class="quiz-option" onclick="responder(3, 'C', this)">C) 70%</button>
+    </div>
+
+    <!-- PREGUNTA 4 -->
+    <div class="quiz-block">
+      <p>4. ¿Qué fotorreceptores retinianos se encargan de la visión del color y agudeza visual?</p>
+      <button class="quiz-option" onclick="responder(4, 'A', this)">A) Bastones</button>
+      <button class="quiz-option" onclick="responder(4, 'B', this)">B) Conos</button>
+      <button class="quiz-option" onclick="responder(4, 'C', this)">C) Axones</button>
+    </div>
+
+    <!-- PREGUNTA 5 -->
+    <div class="quiz-block">
+      <p>5. ¿Cuál es la función principal del iris?</p>
+      <button class="quiz-option" onclick="responder(5, 'A', this)">A) Regular el tamaño de la pupila y la entrada de luz</button>
+      <button class="quiz-option" onclick="responder(5, 'B', this)">B) Transportar la imagen al cerebro</button>
+      <button class="quiz-option" onclick="responder(5, 'C', this)">C) Proteger la parte posterior del ojo</button>
+    </div>
+
+    <!-- PREGUNTA 6 -->
+    <div class="quiz-block">
+      <p>6. ¿Qué órgano o estructura voltea la imagen invertida para percibirla al derecho?</p>
+      <button class="quiz-option" onclick="responder(6, 'A', this)">A) La Córnea</button>
+      <button class="quiz-option" onclick="responder(6, 'B', this)">B) El Cristalino</button>
+      <button class="quiz-option" onclick="responder(6, 'C', this)">C) El Cerebro (Corteza Visual)</button>
+    </div>
+
+    <!-- PREGUNTA 7 -->
+    <div class="quiz-block">
+      <p>7. En el experimento con lentes convergentes (lupas), ¿cómo se proyecta la luz enfocada?</p>
+      <button class="quiz-option" onclick="responder(7, 'A', this)">A) Invertida</button>
+      <button class="quiz-option" onclick="responder(7, 'B', this)">B) Al derecho</button>
+      <button class="quiz-option" onclick="responder(7, 'C', this)">C) De lado</button>
+    </div>
+
+    <!-- PREGUNTA 8 -->
+    <div class="quiz-block">
+      <p>8. ¿Qué parte transporta los impulsos eléctricos desde la retina hasta el cerebro?</p>
+      <button class="quiz-option" onclick="responder(8, 'A', this)">A) Pupila</button>
+      <button class="quiz-option" onclick="responder(8, 'B', this)">B) Nervio Óptico</button>
+      <button class="quiz-option" onclick="responder(8, 'C', this)">C) Humor Vítreo</button>
+    </div>
+
+    <!-- PREGUNTA 9 -->
+    <div class="quiz-block">
+      <p>9. ¿Qué fotorreceptores se activan principalmente en ambientes con poca luz (visión nocturna)?</p>
+      <button class="quiz-option" onclick="responder(9, 'A', this)">A) Bastones</button>
+      <button class="quiz-option" onclick="responder(9, 'B', this)">B) Conos</button>
+      <button class="quiz-option" onclick="responder(9, 'C', this)">C) Iris</button>
+    </div>
+
+    <!-- PREGUNTA 10 -->
+    <div class="quiz-block">
+      <p>10. ¿Cómo se llama el fenómeno cuando la luz blanca se divide en colores al pasar por un prisma?</p>
+      <button class="quiz-option" onclick="responder(10, 'A', this)">A) Reflexión total</button>
+      <button class="quiz-option" onclick="responder(10, 'B', this)">B) Dispersión cromática</button>
+      <button class="quiz-option" onclick="responder(10, 'C', this)">C) Absorción</button>
+    </div>
+
+    <button class="btn-calc" onclick="calcularScore()">Calcular Puntuación Final</button>
+
+    <!-- CAJA DE RESULTADO ESTILIZADA -->
+    <div id="caja-resultado" style="display: none; margin-top: 25px; padding: 20px; background-color: var(--gris-claro); border-radius: 10px; border: 2px solid var(--dorado); text-align: center;">
+      <h3 id="resultado" style="color: var(--azul-oscuro); font-size: 1.3rem; margin: 0;"></h3>
+    </div>
+  </main>
+
+  <script>
+    // Respuestas correctas
+    const correctas = {
+      1: 'B', 2: 'A', 3: 'C', 4: 'B', 5: 'A',
+      6: 'C', 7: 'A', 8: 'B', 9: 'A', 10: 'B'
+    };
+
+    let userResp = {};
+
+    function responder(numPregunta, opcion, elemento) {
+      // Registrar la opción seleccionada
+      userResp[numPregunta] = opcion;
+
+      // Obtener todos los botones de la misma pregunta
+      let padre = elemento.parentElement;
+      let botones = padre.querySelectorAll('.quiz-option');
+
+      // Limpiar clases previas en esa pregunta
+      botones.forEach(btn => {
+        btn.classList.remove('correcta', 'incorrecta');
+      });
+
+      // Verificar si la respuesta presionada es la correcta
+      if (opcion === correctas[numPregunta]) {
+        elemento.classList.add('correcta');
+      } else {
+        elemento.classList.add('incorrecta');
+        
+        // Destacar cuál era la correcta en verde
+        botones.forEach(btn => {
+          if (btn.innerText.startsWith(correctas[numPregunta])) {
+            btn.classList.add('correcta');
+          }
+        });
+      }
+    }
+
+    function calcularScore() {
+      let puntos = 0;
+      let respondidas = Object.keys(userResp).length;
+
+      for (let i = 1; i <= 10; i++) {
+        if (userResp[i] === correctas[i]) {
+          puntos += 10;
+        }
+      }
+
+      let caja = document.getElementById('caja-resultado');
+      let resDiv = document.getElementById('resultado');
+
+      // Mostrar la caja contenedora
+      caja.style.display = 'block';
+
+      if (respondidas < 10) {
+        resDiv.innerText = `Puntuación actual: ${puntos} / 100 Pts\n(Has respondido ${respondidas} de 10 preguntas).`;
+      } else {
+        resDiv.innerText = `🎯 ¡Completado! Puntuación Final: ${puntos} / 100 Pts`;
+      }
+
+      // Desplazar suavemente hasta el resultado
+      caja.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+  <footer>
+    <p>&copy; OPTIVISIÓN - Proyecto de Ciencias</p>
+  </footer>
+</body>
+</html>

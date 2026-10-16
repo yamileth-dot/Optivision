@@ -1,0 +1,558 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --azul-oscuro: #0f172a;
+  --azul-medio: #1e293b;
+  --azul-hover: #334155;
+  --dorado: #d4af37;
+  --dorado-brillante: #f59e0b;
+  --dorado-suave: #fef3c7;
+  --blanco: #ffffff;
+  --gris-fondo: #f1f5f9;
+  --gris-claro: #f8fafc;
+  --gris-borde: #e2e8f0;
+  --texto-oscuro: #334155;
+  --texto-mutado: #64748b;
+  --verde-exito: #10b981;
+  --rojo-error: #ef4444;
+  --rojo-acento: #dc2626;
+  --sombra-suave: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+  --sombra-hover: 0 12px 28px -4px rgba(15, 23, 42, 0.15);
+  --radio-card: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--gris-fondo);
+  color: var(--texto-oscuro);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   HEADER Y LOGO
+   ========================================================================== */
+header {
+  background: linear-gradient(135deg, var(--azul-oscuro) 0%, #090d16 100%);
+  padding: 22px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.optivision-logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-ojo {
+  width: 58px;
+  height: 58px;
+  background: var(--blanco);
+  border: 2px solid var(--dorado);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.logo-ojo:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.ojo {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.letras-logo {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.letra-o {
+  color: var(--azul-oscuro);
+  font-family: 'Georgia', serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.letra-v {
+  color: var(--dorado);
+  font-family: 'Georgia', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  font-weight: bold;
+  margin-left: -1px;
+}
+
+.texto-logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.nombre-top {
+  color: var(--blanco);
+  font-family: 'Inter', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  border-bottom: 2px solid var(--dorado);
+  padding-bottom: 3px;
+}
+
+.sub-bottom {
+  color: var(--dorado);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  margin-top: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   NAVEGACIÓN
+   ========================================================================== */
+nav {
+  background-color: var(--azul-medio);
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 15px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+nav a:hover {
+  color: var(--blanco);
+  background-color: var(--azul-hover);
+}
+
+nav a.activo {
+  background-color: var(--azul-oscuro);
+  color: var(--dorado);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: inset 0 0 8px rgba(212, 175, 55, 0.15);
+}
+
+/* ==========================================================================
+   CONTENIDO PRINCIPAL
+   ========================================================================== */
+main {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 40px;
+  background: var(--blanco);
+  border-radius: var(--radio-card);
+  box-shadow: var(--sombra-suave);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+main > p {
+  font-size: 1.05rem;
+  color: var(--texto-oscuro);
+  margin-bottom: 30px;
+  background-color: var(--gris-claro);
+  padding: 18px 22px;
+  border-radius: 12px;
+  border-left: 4px solid var(--azul-oscuro);
+}
+
+h1, h2 {
+  color: var(--azul-oscuro);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  position: relative;
+  font-size: 1.8rem;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: var(--dorado);
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   CARDS Y SECCIONES DE INFORMACIÓN (.info-section)
+   ========================================================================== */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 30px;
+}
+
+.info-card {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio-card);
+  overflow: hidden;
+  box-shadow: var(--sombra-suave);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 24px; /* Asegura contenedor uniforme incluso con HTML mal cerrado */
+  gap: 20px;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-hover);
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+.info-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.info-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-card h3, 
+.info-card-body h3 {
+  color: var(--azul-oscuro);
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.info-card h3::before,
+.info-card-body h3::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 22px;
+  background-color: var(--dorado);
+  border-radius: 3px;
+}
+
+.info-card p, 
+.info-card-body p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--texto-oscuro);
+}
+
+.info-card strong, 
+.info-card-body strong {
+  color: var(--azul-oscuro);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   INICIO (GRID HOME)
+   ========================================================================== */
+.grid-home {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.card-home {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio-card);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--sombra-suave);
+}
+
+.card-home:hover {
+  transform: translateY(-6px);
+  border-color: var(--dorado);
+  box-shadow: var(--sombra-hover);
+}
+
+.card-home img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card-home-content {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.btn-card {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 12px 20px;
+  background-color: var(--azul-oscuro);
+  color: var(--dorado);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-card:hover {
+  background-color: var(--azul-medio);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+}
+
+/* ==========================================================================
+   ILUSIONES ÓPTICAS Y EXPERIMENTOS
+   ========================================================================== */
+.grid-ilusiones-clean {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.card-ilusion-clean {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio-card);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--sombra-suave);
+  transition: transform 0.3s ease;
+}
+
+.card-ilusion-clean:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-hover);
+}
+
+.card-ilusion-clean h3 {
+  font-size: 1.15rem;
+  color: var(--azul-oscuro);
+  margin-bottom: 18px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.canvas-wrap {
+  width: 100%;
+  max-width: 280px;
+  height: 280px;
+  background-color: #0f172a;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--azul-medio);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+}
+
+.controls-clean {
+  width: 100%;
+  margin: 18px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-clean {
+  background-color: var(--azul-oscuro);
+  color: var(--dorado);
+  border: 1px solid var(--dorado);
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.btn-clean:hover {
+  background-color: var(--azul-medio);
+  transform: scale(1.01);
+}
+
+.timer-clean {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--azul-oscuro);
+}
+
+.desc-clean {
+  font-size: 0.9rem;
+  color: var(--texto-oscuro);
+  line-height: 1.6;
+  background-color: var(--gris-claro);
+  padding: 14px 16px;
+  border-radius: 8px;
+  border-left: 4px solid var(--dorado);
+  width: 100%;
+}
+
+/* ==========================================================================
+   QUIZ Y TRIVIA
+   ========================================================================== */
+.quiz-block {
+  background: var(--gris-claro);
+  padding: 24px;
+  border-left: 5px solid var(--dorado);
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+
+.quiz-block p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: var(--azul-oscuro);
+}
+
+.quiz-option {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  margin: 10px 0;
+  background: var(--blanco);
+  border: 2px solid var(--gris-borde);
+  border-radius: 8px;
+  text-align: left;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: var(--texto-oscuro);
+}
+
+.quiz-option:hover:not([disabled]) {
+  background: var(--dorado-suave);
+  border-color: var(--dorado);
+  color: var(--azul-oscuro);
+}
+
+.quiz-option.correcta {
+  background-color: var(--verde-exito) !important;
+  color: var(--blanco) !important;
+  border-color: var(--verde-exito) !important;
+  font-weight: 600;
+}
+
+.quiz-option.incorrecta {
+  background-color: var(--rojo-error) !important;
+  color: var(--blanco) !important;
+  border-color: var(--rojo-error) !important;
+}
+
+.btn-calc {
+  background-color: var(--rojo-acento);
+  color: var(--blanco);
+  border: none;
+  padding: 16px 28px;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
+.btn-calc:hover {
+  background-color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+  text-align: center;
+  padding: 28px 20px;
+  background-color: var(--azul-oscuro);
+  color: #94a3b8;
+  margin-top: 60px;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+footer p {
+  color: var(--blanco);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 768px) {
+  main {
+    margin: 15px;
+    padding: 20px;
+  }
+
+  .info-card img {
+    height: 220px;
+  }
+
+  nav {
+    gap: 4px;
+    padding: 8px;
+  }
+
+  nav a {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+}
